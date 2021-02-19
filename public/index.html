@@ -12,13 +12,51 @@
     <title>codesandbox</title>
   </head>
   <body>
-    <noscript>
-      <strong
-        >We're sorry but codesandbox doesn't work properly without JavaScript
-        enabled. Please enable it to continue.</strong
-      >
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
+    
+    <div id="app"> 
+ <h2>Users</h2>
+ <div v-show="isFetching">
+  <h5>Loading data...</h5>
+ </div>
+ <div class="row mt-4" >
+  <div class="col-md-3 col-sm-0 col-xs-0 float-left">
+   <h5>Name</h5>
+  </div>
+  <div class="col-md-3 col-sm-0 col-xs-0">
+   <h5>City</h5>
+  </div>
+  <div class="col-md-3 col-sm-0 col-xs-0 p-1">
+   <h5>Email</h5>
+  </div>
+  <div class="col-md-3 col-sm-3 col-xs-0 p-0">
+   <h5>Company</h5>
+  </div>
+ </div>
+<div v-for="(item, index) in data.sort((a, b) => a.name.localeCompare(b.name))" :key="index">
+
+ <div class="row border-bottom border-secondary p-3">
+ <div class="col-md-3 col-sm-12 col-xs-12 m-auto">
+  <span class="text-secondary">
+         {{item.name}}
+  </span>
+ </div>
+<div class="col-md-3 col-sm-12 col-xs-12">   
+ <span v-if="item.address.geo.lat < 0" class="text-danger">
+  {{item.address.city}}
+ </span>
+ <span v-else class="text-secondary">
+  {{item.address.city}}
+ </span>
+ </div> 
+  <div class="col-md-3 col-sm-12 col-xs-12">   <a :href="`mailto:${item.email}`" class="text-info">{{item.email}}</a>
+
+
+ </div> 
+<div class="col-md-3 col-sm-12 col-xs-12" class="text-secondary">         {{item.company.name}}
+ </div>
+ </div>
+ </div>
+</div>
+
   </body>
 </html>
